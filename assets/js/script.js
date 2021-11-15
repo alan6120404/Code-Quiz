@@ -217,7 +217,7 @@ var storeAnswerEl = function(event) {
 // time runs out, jump to quiz over screen with option to save your high score and view high score.
 var endGame = function() {
     console.log("game over");
-// removing all content to leave space for high score
+// removing all content to leave space for high score input
     var removeQuizEl = document.querySelector(".quiz-title")
     removeQuizEl.remove();
 
@@ -257,9 +257,25 @@ var endGame = function() {
     inputContainerEl.appendChild(scoreInputBtnEl);
 
 // submit function
+    userName = document.querySelector(".input").value;
+    var submitBtnEl = document.querySelector(".input-btn");
+    submitBtnEl.addEventListener("click", highScore);
 // recording the score
 
 };
 
+var highScore = function() {
+    // removing all content to leave space for high score
+    document.querySelector(".score-title").textContent = "High Scores!";
+    var removeInputInfoEl = document.querySelector(".score-info")
+    removeInputInfoEl.remove();
+
+    var removeInputEl = document.querySelector(".input-cont")
+    removeInputEl.remove();
+
+    //create a list of all the high scores
+
+    //create buttons to restart and clear high scores
+}
 
 quizButtonEl.addEventListener("click", quizCreatorEl);
