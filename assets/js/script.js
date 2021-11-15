@@ -18,13 +18,12 @@ function countdown() {
             // telling the user "quiz over"
             clearInterval(timer);
             console.log("quiz over");
+            endGame();
         }
     }, 1000);
 
     // what happen when countdown reaches 0, end game.
-    if (timeLeft === 0) {
-        endGame();
-    };
+
 }
 
 // jump to the quiz itself, make it repeats the function with different questions. 
@@ -79,7 +78,7 @@ var quizArr = [
             d: "if (i == 5)"
         },
         answer: "d"
-    }
+    },
 ];
 
 
@@ -156,12 +155,19 @@ var buttonCreatorEl = function() {
 var storeAnswerEl = function(event) {
     //comparing the selection to answer
     if (quizArr[counterEl].answer == event.target.id) {
+        counterEl++;
+        // game over when there is no more questions
+        if(counterEl === quizArr.length) {
+            console.log("the end");
+            endGame();
+            return;
+        };
     // call function to the next question
         //removing the question, then replace with the new one
             var removeQuestionEl = document.querySelector(".four-buttons");
             removeQuestionEl.remove();
+
         // changing the question 
-            counterEl++;
             document.querySelector("#quiz-title").textContent = quizArr[counterEl].questions;
             buttonCreatorEl();
 
@@ -174,14 +180,23 @@ var storeAnswerEl = function(event) {
         var buttonContainerEl = document.querySelector(".four-buttons");
         buttonContainerEl.appendChild(createCorrectEl);
 
+        // game over when there is no more questions
+        
+
     } else if(quizArr[counterEl].answer != event.target.id) {
+        // game over when there is no more questions
+        counterEl++;
+        if(counterEl === quizArr.length) {
+            console.log("the end");
+            endGame();
+            return;
+        };
     //call function to the next question
             //removing the question, then replace with the new one
                 var removeQuestionEl = document.querySelector(".four-buttons");
                 removeQuestionEl.remove();
 
             // changing the question 
-                counterEl++;
                 document.querySelector("#quiz-title").textContent = quizArr[counterEl].questions;
                 buttonCreatorEl();
     // logging that the player selected a wrong answer
@@ -192,25 +207,16 @@ var storeAnswerEl = function(event) {
         var buttonContainerEl = document.querySelector(".four-buttons");
         buttonContainerEl.appendChild(createIncorrectEl);
 
+        
     };
 
 
 };
 
-    // button clicked to store data
-
-
-    
-
-    // button clicked to trigger next question
-
-
-    // 4 buttons should have 1 true response and 3 false response
-    // feedback for the 2 type responses
-    // store results into localStorage as scores
-    // getItem localStorage to display as high scores. 
-
 // time runs out, jump to quiz over screen with option to save your high score and view high score.
-
+var endGame = function() {
+    console.log("game over");
+    return;
+};
 
 quizButtonEl.addEventListener("click", quizCreatorEl);
