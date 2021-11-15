@@ -156,6 +156,15 @@ var buttonCreatorEl = function() {
 var storeAnswerEl = function(event) {
     //comparing the selection to answer
     if (quizArr[counterEl].answer == event.target.id) {
+    // call function to the next question
+        //removing the question, then replace with the new one
+            var removeQuestionEl = document.querySelector(".four-buttons");
+            removeQuestionEl.remove();
+        // changing the question 
+            counterEl++;
+            document.querySelector("#quiz-title").textContent = quizArr[counterEl].questions;
+            buttonCreatorEl();
+
         //logging correct for the player to see
 
         var createCorrectEl = document.createElement("h1");
@@ -164,17 +173,24 @@ var storeAnswerEl = function(event) {
 
         var buttonContainerEl = document.querySelector(".four-buttons");
         buttonContainerEl.appendChild(createCorrectEl);
-        // call function to the next question
 
     } else if(quizArr[counterEl].answer != event.target.id) {
+    //call function to the next question
+            //removing the question, then replace with the new one
+                var removeQuestionEl = document.querySelector(".four-buttons");
+                removeQuestionEl.remove();
 
+            // changing the question 
+                counterEl++;
+                document.querySelector("#quiz-title").textContent = quizArr[counterEl].questions;
+                buttonCreatorEl();
+    // logging that the player selected a wrong answer
         var createIncorrectEl = document.createElement("h1");
         createIncorrectEl.textContent = "Incorrect!";
         createIncorrectEl.className = "Incorrect";
 
         var buttonContainerEl = document.querySelector(".four-buttons");
         buttonContainerEl.appendChild(createIncorrectEl);
-        //call function to the next question
 
     };
 
