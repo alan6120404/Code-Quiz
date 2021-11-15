@@ -188,6 +188,12 @@ var storeAnswerEl = function(event) {
     } else if(quizArr[counterEl].answer != event.target.id) {
         // game over when there is no more questions
         counterEl++;
+        timeLeft = timeLeft - 10;
+        if(timeLeft <= 0) {
+            timeLeft = 0;
+            endGame();
+            return;
+        }
         if(counterEl === quizArr.length) {
             console.log("the end");
             endGame();
@@ -257,15 +263,20 @@ var endGame = function() {
     inputContainerEl.appendChild(scoreInputEl);
     inputContainerEl.appendChild(scoreInputBtnEl);
 
+// recording the score
+    saveScore();
 // submit function
 
     var submitBtnEl = document.querySelector(".input-btn");
     submitBtnEl.addEventListener("click", highScore);
-// recording the score
 
 };
 
-
+ var saveScore = function() {
+    userName = document.querySelector(".input").value;
+    localStorage.setItem("highscore", JSON.stringify(timeLeft));
+    /*localStorage.setItem("username", JSON.stringify(userName));*/
+}; 
 
 var highScore = function() {
     userName = document.querySelector(".input").value;
@@ -284,10 +295,15 @@ var highScore = function() {
     removeLinkEl.remove();
     //create a list of all the high scores
 
+    /*var highName = localStorage.getItem("username");
+        highName = JSON.parse(highName);*/
+    var scoreHigh = localStorage.getItem("highscore");
+
+
         var scoreListEl = document.createElement("div");
         scoreListEl.className = "score-list";
         scoreListEl.innerHTML = 
-            "<ol class='score-ol'>" + "<li class='score-li'>" + userName + " - " + timeLeft + "</li>" + "</ol>";
+            "<ol class='score-ol'>" + "<li class='score-li'>" + userName + " - " + scoreHigh + "</li>" + "</ol>";
 
         quizBodyEl.appendChild(scoreListEl);
 
@@ -310,6 +326,15 @@ var highScore = function() {
     // reloading the page when the button is clicked
     var goBackBtnEl = document.querySelector(".goback-btn");
     goBackBtnEl.addEventListener("click", reload);
+
+    // clear the high score when the button is clicked
+    var clearHSBtnEl = document.querySelector(".clear-btn");
+    clearHSBtnEl.addEventListener("click", clear);
+}
+
+var clear = function () {
+    var removeHighScoreEl = document.querySelector(".score-list")
+    removeHighScoreEl.remove();
 }
 
 var reload = function() {
