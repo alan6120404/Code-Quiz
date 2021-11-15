@@ -4,9 +4,9 @@ var quizBodyEl = document.querySelector("#quiz-body");
 var pageContentEl = document.querySelector("#quiz");
 var quizButtonEl = document.querySelector("#quiz-button");
 var counterEl = 0;
+var timeLeft = 60;
 //countdown timer
 function countdown() {
-    var timeLeft = 60;
 
     var timer = setInterval(function() {
         if (timeLeft >= 0) {
@@ -24,7 +24,8 @@ function countdown() {
 
     // what happen when countdown reaches 0, end game.
 
-}
+    };
+
 
 // jump to the quiz itself, make it repeats the function with different questions. 
 //creating an array of quiz questions answers to pull from
@@ -216,7 +217,49 @@ var storeAnswerEl = function(event) {
 // time runs out, jump to quiz over screen with option to save your high score and view high score.
 var endGame = function() {
     console.log("game over");
-    return;
+// removing all content to leave space for high score
+    var removeQuizEl = document.querySelector(".quiz-title")
+    removeQuizEl.remove();
+
+    var removeQuizButtonEl = document.querySelector(".four-buttons")
+    removeQuizButtonEl.remove();
+
+// showing the player what their score is
+    var quizBodyEl = document.querySelector(".quiz-body");
+    var scoreTitleEl = document.createElement("h1");
+    scoreTitleEl.textContent = "Quiz Over!";
+    scoreTitleEl.className = "score-title";
+
+    quizBodyEl.appendChild(scoreTitleEl);
+
+    var scoreInfoEl = document.createElement("h3");
+    scoreInfoEl.textContent = "Your score is " + timeLeft + ".";
+    scoreInfoEl.className = "score-info";
+
+    quizBodyEl.appendChild(scoreInfoEl);
+// let player input their name
+    var scoreInputContainerEl = document.createElement("div");
+    scoreInputContainerEl.className = "input-cont";
+    var scoreInputTextEl = document.createElement("p");
+    scoreInputTextEl.textContent = "Enter Initial: ";
+    scoreInputTextEl.className = "input-text";
+    var scoreInputEl = document.createElement("input");
+    scoreInputEl.className = "input";
+    scoreInputEl.setAttribute("type", "text");
+    var scoreInputBtnEl = document.createElement("button");
+    scoreInputBtnEl.className = "input-btn";
+    scoreInputBtnEl.textContent = "Submit";
+
+    quizBodyEl.appendChild(scoreInputContainerEl);
+    var inputContainerEl = document.querySelector(".input-cont");
+    inputContainerEl.appendChild(scoreInputTextEl);
+    inputContainerEl.appendChild(scoreInputEl);
+    inputContainerEl.appendChild(scoreInputBtnEl);
+
+// submit function
+// recording the score
+
 };
+
 
 quizButtonEl.addEventListener("click", quizCreatorEl);
