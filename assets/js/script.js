@@ -2,6 +2,7 @@ var timerEl = document.getElementById('timer');
 var quizQuestionEl = document.querySelector("#quiz-title");
 var quizBodyEl = document.querySelector("#quiz-body");
 var pageContentEl = document.querySelector("#quiz");
+var quizButtonEl = document.querySelector("#quiz-button");
 var counterEl = 0;
 //countdown timer
 function countdown() {
@@ -30,54 +31,54 @@ function countdown() {
 //creating an array of quiz questions answers to pull from
 var quizArr = [
     {
-        questions: "lorem ljahdbf lkjhbasdf lkjbsdf?",
+        questions: "Inside which HTML element do we put the JavaScript?",
         choices: {
-            a: "lkjsbf kjn",
-            b: "dfj sodnf",
-            c: "kuhdf lkml",
-            d: "sdf sdfljn"
+            a: "<script>",
+            b: "<scripting>",
+            c: "<javascript>",
+            d: "<js>"
         },
-        answer: ""
+        answer: "a"
     },
     {
-        questions: "lorem ljahdbf lkjhbasdf lkjbsdf?",
+        questions: "Where is the best place to insert a JavaScript?",
         choices: {
-            a: "lkjsbf kjn",
-            b: "dfj sodnf",
-            c: "kuhdf lkml",
-            d: "sdf sdfljn"
+            a: "<head>",
+            b: "<meta>",
+            c: "<link>",
+            d: "<body>"
         },
-        answer: ""
+        answer: "d"
     },
     {
-        questions: "lorem ljahdbf lkjhbasdf lkjbsdf?",
+        questions: "How do you create a function in JavaScript?",
         choices: {
-            a: "lkjsbf kjn",
-            b: "dfj sodnf",
-            c: "kuhdf lkml",
-            d: "sdf sdfljn"
+            a: "function myfunction()",
+            b: "function:myfunction()",
+            c: "function = myfunction()",
+            d: "function, myfunction()"
         },
-        answer: ""
+        answer: "a"
     },
     {
-        questions: "lorem ljahdbf lkjhbasdf lkjbsdf?",
+        questions: 'How do you call a function named "myFunction"?',
         choices: {
-            a: "lkjsbf kjn",
-            b: "dfj sodnf",
-            c: "kuhdf lkml",
-            d: "sdf sdfljn"
+            a: "call myFunction()",
+            b: "call function()",
+            c: "myFunction()",
+            d: "function()"
         },
-        answer: ""
+        answer: "c"
     },
     {
-        questions: "lorem ljahdbf lkjhbasdf lkjbsdf?",
+        questions: "How to write an IF statement in JavaScript?",
         choices: {
-            a: "lkjsbf kjn",
-            b: "dfj sodnf",
-            c: "kuhdf lkml",
-            d: "sdf sdfljn"
+            a: "if i = 5",
+            b: "if i == 5 then",
+            c: "if i = 5 then",
+            d: "if (i == 5)"
         },
-        answer: ""
+        answer: "d"
     }
 ];
 
@@ -120,6 +121,7 @@ var buttonCreatorEl = function() {
     var createButton1El = document.createElement("button");
     createButton1El.textContent = quizArr[counterEl].choices.a;
     createButton1El.className = "multiple-btn btn";
+    createButton1El.id = "a";
 
     createContainer1El.appendChild(createButton1El);
 
@@ -127,6 +129,7 @@ var buttonCreatorEl = function() {
     var createButton2El = document.createElement("button");
     createButton2El.textContent = quizArr[counterEl].choices.b;
     createButton2El.className = "multiple-btn btn";
+    createButton2El.id = "b";
 
     createContainer1El.appendChild(createButton2El);
 
@@ -134,6 +137,7 @@ var buttonCreatorEl = function() {
     var createButton3El = document.createElement("button");
     createButton3El.textContent = quizArr[counterEl].choices.c;
     createButton3El.className = "multiple-btn btn";
+    createButton3El.id = "c";
 
     createContainer2El.appendChild(createButton3El);
 
@@ -141,9 +145,49 @@ var buttonCreatorEl = function() {
     var createButton4El = document.createElement("button");
     createButton4El.textContent = quizArr[counterEl].choices.d;
     createButton4El.className = "multiple-btn btn";
+    createButton4El.id = "d";
 
     createContainer2El.appendChild(createButton4El);
+
+    buttonContainerEl.addEventListener("click", storeAnswerEl);
+
 }
+
+var storeAnswerEl = function(event) {
+    //comparing the selection to answer
+    if (quizArr[counterEl].answer == event.target.id) {
+        //logging correct for the player to see
+
+        var createCorrectEl = document.createElement("h1");
+        createCorrectEl.textContent = "Correct!";
+        createCorrectEl.className = "Correct";
+
+        var buttonContainerEl = document.querySelector(".four-buttons");
+        buttonContainerEl.appendChild(createCorrectEl);
+        // call function to the next question
+
+    } else if(quizArr[counterEl].answer != event.target.id) {
+
+        var createIncorrectEl = document.createElement("h1");
+        createIncorrectEl.textContent = "Incorrect!";
+        createIncorrectEl.className = "Incorrect";
+
+        var buttonContainerEl = document.querySelector(".four-buttons");
+        buttonContainerEl.appendChild(createIncorrectEl);
+        //call function to the next question
+
+    };
+
+
+};
+
+    // button clicked to store data
+
+
+    
+
+    // button clicked to trigger next question
+
 
     // 4 buttons should have 1 true response and 3 false response
     // feedback for the 2 type responses
@@ -153,4 +197,4 @@ var buttonCreatorEl = function() {
 // time runs out, jump to quiz over screen with option to save your high score and view high score.
 
 
-pageContentEl.addEventListener("click", quizCreatorEl);
+quizButtonEl.addEventListener("click", quizCreatorEl);
