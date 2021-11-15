@@ -124,3 +124,43 @@ header h3 a {
     left: 23px;
     bottom: -41px;
 }
+
+.score-ol {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(250, 197, 132);
+    align-items: center;
+    height: 36px;
+    width: 161px;
+}
+
+.score-li {
+    text-align: left;
+}
+
+.goback-btn {
+    background-color: darkorange;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    border: none;
+    border-radius: 10%;
+    height: 20%;
+    padding: 0 22px;
+    margin: 0 50px;
+}
+
+.clear-btn {
+    background-color: darkorange;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    border: none;
+    border-radius: 10%;
+    height: 20%;
+    padding: 0 22px;
+}

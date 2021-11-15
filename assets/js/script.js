@@ -5,6 +5,7 @@ var pageContentEl = document.querySelector("#quiz");
 var quizButtonEl = document.querySelector("#quiz-button");
 var counterEl = 0;
 var timeLeft = 60;
+
 //countdown timer
 function countdown() {
 
@@ -257,14 +258,17 @@ var endGame = function() {
     inputContainerEl.appendChild(scoreInputBtnEl);
 
 // submit function
-    userName = document.querySelector(".input").value;
+
     var submitBtnEl = document.querySelector(".input-btn");
     submitBtnEl.addEventListener("click", highScore);
 // recording the score
 
 };
 
+
+
 var highScore = function() {
+    userName = document.querySelector(".input").value;
     // removing all content to leave space for high score
     document.querySelector(".score-title").textContent = "High Scores!";
     var removeInputInfoEl = document.querySelector(".score-info")
@@ -273,9 +277,43 @@ var highScore = function() {
     var removeInputEl = document.querySelector(".input-cont")
     removeInputEl.remove();
 
+    var removeTimerEl = document.querySelector("#timer")
+    removeTimerEl.remove();
+
+    var removeLinkEl = document.querySelector(".high-score")
+    removeLinkEl.remove();
     //create a list of all the high scores
 
+        var scoreListEl = document.createElement("div");
+        scoreListEl.className = "score-list";
+        scoreListEl.innerHTML = 
+            "<ol class='score-ol'>" + "<li class='score-li'>" + userName + " - " + timeLeft + "</li>" + "</ol>";
+
+        quizBodyEl.appendChild(scoreListEl);
+
+
     //create buttons to restart and clear high scores
+
+    var goBackBtnEl = document.createElement("button");
+    goBackBtnEl.className = "goback-btn";
+    goBackBtnEl.textContent = "Go back";
+
+    quizBodyEl.appendChild(goBackBtnEl);
+
+    var clearHSBtnEl = document.createElement("button");
+    clearHSBtnEl.className = "clear-btn";
+    clearHSBtnEl.textContent = "Clear high scores";
+
+    quizBodyEl.appendChild(clearHSBtnEl);
+
+    //function for the buttons
+    // reloading the page when the button is clicked
+    var goBackBtnEl = document.querySelector(".goback-btn");
+    goBackBtnEl.addEventListener("click", reload);
+}
+
+var reload = function() {
+    location.reload();
 }
 
 quizButtonEl.addEventListener("click", quizCreatorEl);
