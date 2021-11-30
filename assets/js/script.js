@@ -5,7 +5,7 @@ var pageContentEl = document.querySelector("#quiz");
 var quizButtonEl = document.querySelector("#quiz-button");
 var counterEl = 0;
 var timeLeft = 60;
-
+var finalScore = JSON.parse(localStorage.getItem("highscore")) || [];
 //countdown timer
 function countdown() {
 
@@ -264,81 +264,24 @@ var endGame = function() {
     inputContainerEl.appendChild(scoreInputBtnEl);
 
 // recording the score
-    saveScore();
+
 // submit function
 
     var submitBtnEl = document.querySelector(".input-btn");
-    submitBtnEl.addEventListener("click", highScore);
+    submitBtnEl.addEventListener("click", saveScore);
 
 };
 
  var saveScore = function() {
     userName = document.querySelector(".input").value;
-    localStorage.setItem("highscore", JSON.stringify(timeLeft));
+
+    finalScore.push({userName, timeLeft});
+    localStorage.setItem("highscore", JSON.stringify(finalScore));
     /*localStorage.setItem("username", JSON.stringify(userName));*/
+    location.href = "highscore.html";
 }; 
 
-var highScore = function() {
-    userName = document.querySelector(".input").value;
-    // removing all content to leave space for high score
-    document.querySelector(".score-title").textContent = "High Scores!";
-    var removeInputInfoEl = document.querySelector(".score-info")
-    removeInputInfoEl.remove();
-
-    var removeInputEl = document.querySelector(".input-cont")
-    removeInputEl.remove();
-
-    var removeTimerEl = document.querySelector("#timer")
-    removeTimerEl.remove();
-
-    var removeLinkEl = document.querySelector(".high-score")
-    removeLinkEl.remove();
-    //create a list of all the high scores
-
-    /*var highName = localStorage.getItem("username");
-        highName = JSON.parse(highName);*/
-    var scoreHigh = localStorage.getItem("highscore");
 
 
-        var scoreListEl = document.createElement("div");
-        scoreListEl.className = "score-list";
-        scoreListEl.innerHTML = 
-            "<ol class='score-ol'>" + "<li class='score-li'>" + userName + " - " + scoreHigh + "</li>" + "</ol>";
-
-        quizBodyEl.appendChild(scoreListEl);
-
-
-    //create buttons to restart and clear high scores
-
-    var goBackBtnEl = document.createElement("button");
-    goBackBtnEl.className = "goback-btn";
-    goBackBtnEl.textContent = "Go back";
-
-    quizBodyEl.appendChild(goBackBtnEl);
-
-    var clearHSBtnEl = document.createElement("button");
-    clearHSBtnEl.className = "clear-btn";
-    clearHSBtnEl.textContent = "Clear high scores";
-
-    quizBodyEl.appendChild(clearHSBtnEl);
-
-    //function for the buttons
-    // reloading the page when the button is clicked
-    var goBackBtnEl = document.querySelector(".goback-btn");
-    goBackBtnEl.addEventListener("click", reload);
-
-    // clear the high score when the button is clicked
-    var clearHSBtnEl = document.querySelector(".clear-btn");
-    clearHSBtnEl.addEventListener("click", clear);
-}
-
-var clear = function () {
-    var removeHighScoreEl = document.querySelector(".score-list")
-    removeHighScoreEl.remove();
-}
-
-var reload = function() {
-    location.reload();
-}
 
 quizButtonEl.addEventListener("click", quizCreatorEl);

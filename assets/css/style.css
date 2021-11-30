@@ -125,13 +125,36 @@ header h3 a {
     bottom: -41px;
 }
 
-.score-ol {
+.highscore-body {
+width: 100%;
+display: flex;
+}
+
+.hs-table {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.highscore-title {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     background-color: rgb(250, 197, 132);
     align-items: center;
     height: 36px;
-    width: 161px;
+    width: 100%;
+}
+
+
+.highscore-name {
+}
+
+.table-row {
+    display: flex;
+    background-color: rgb(250, 197, 132);
+    align-items: center;
+    justify-content: space-around;
+    height: 36px;
+    width: 100%;
 }
 
 .score-li {
